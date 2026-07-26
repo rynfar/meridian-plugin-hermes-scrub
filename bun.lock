@@ -1,0 +1,21 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 0,
+  "workspaces": {
+    "": {
+      "name": "@rynfar/meridian-plugin-hermes-scrub",
+      "devDependencies": {
+        "typescript": "^5.5.0",
+      },
+      "peerDependencies": {
+        "@rynfar/meridian": "*",
+      },
+      "optionalPeers": [
+        "@rynfar/meridian",
+      ],
+    },
+  },
+  "packages": {
+    "typescript": ["typescript@5.9.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw=="],
+  }
+}

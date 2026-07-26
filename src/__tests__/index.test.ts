@@ -23,9 +23,13 @@ describe("hermes-scrub plugin", () => {
     expect(typeof plugin.onRequest).toBe("function")
   })
 
-  test("onRequest scrubs the harness block from systemContext", () => {
+  test("onRequest neutralizes fingerprint tokens while preserving guidance", () => {
     const result = plugin.onRequest!(ctx(HERMES_SYSTEM))
-    expect(result.systemContext).not.toContain("# Finishing the job")
+    // Fingerprinting identifiers are broken...
+    expect(result.systemContext).not.toMatch(/\bsession_search\b/)
+    expect(result.systemContext).toContain("session search")
+    // ...but guidance blocks are preserved (no deletion), unlike the old plugin.
+    expect(result.systemContext).toContain("# Finishing the job")
     expect(result.systemContext).toContain("You run on Hermes Agent (by Nous Research)")
   })
 
