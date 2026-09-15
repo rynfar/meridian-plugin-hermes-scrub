@@ -42,7 +42,7 @@ jobs:
 
   publish:
     needs: release-please
-    if: ${{ always() && (needs.release-please.outputs.release_created || inputs.publish_only) }}
+    if: ${{ always() && (needs.release-please.outputs.release_created == 'true' || inputs.publish_only == true) }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -52,8 +52,11 @@ jobs:
           node-version: "22"
           registry-url: "https://registry.npmjs.org"
 
+      - run: npm install --global npm@11.19.1
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.14"
       - run: npm ci
+      - run: npm test
       - run: npm run build
       - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
