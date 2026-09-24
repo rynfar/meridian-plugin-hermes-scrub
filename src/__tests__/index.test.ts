@@ -4,6 +4,8 @@ import { join } from "node:path"
 import plugin from "../index"
 import type { RequestContext } from "../types"
 
+const packageVersion = JSON.parse(readFileSync(join(import.meta.dir, "..", "..", "package.json"), "utf-8")).version
+
 const HERMES_SYSTEM = readFileSync(
   join(import.meta.dir, "fixtures", "hermes-system.txt"),
   "utf-8",
@@ -16,7 +18,7 @@ function ctx(systemContext?: string): RequestContext {
 describe("hermes-scrub plugin", () => {
   test("declares the expected plugin metadata", () => {
     expect(plugin.name).toBe("hermes-scrub")
-    expect(typeof plugin.version).toBe("string")
+    expect(plugin.version).toBe(packageVersion)
     // Content-scoped, not adapter-scoped — must run on every adapter
     // (Hermes traffic currently routes through the pi/default adapter).
     expect(plugin.adapters).toBeUndefined()
