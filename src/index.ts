@@ -3,9 +3,9 @@
  * system prompt before it reaches Claude.
  *
  * CONTENT-SCOPED, not adapter-scoped: runs on EVERY adapter and self-scopes by
- * content. `scrubHermesFingerprints` only rewrites the prompt when Hermes'
- * "# Finishing the job" harness block is actually present, and is otherwise an
- * exact no-op. This matters because Hermes (by Nous Research) speaks the
+ * content. `scrubHermesFingerprints` only rewrites the prompt when a targeted
+ * self-management tool identifier is present, and is otherwise an exact no-op.
+ * This matters because Hermes (by Nous Research) speaks the
  * Anthropic Messages API but sends no distinguishing header — its traffic
  * arrives under whatever adapter Meridian falls back to (commonly pi or the
  * default), so an adapter-scoped filter would miss it and let the fingerprint
